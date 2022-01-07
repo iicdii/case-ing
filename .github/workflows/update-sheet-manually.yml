@@ -48,6 +48,9 @@ jobs:
         with:
           name: specs
           path: cypress/integration
+      - name: yarn install
+        run: |
+          yarn install --frozen-lockfile
       - name: Cypress run
         run: |
           cypress run --spec $(node cypress-partial.js 10 ${{ matrix.containers }})
