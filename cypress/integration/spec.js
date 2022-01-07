@@ -1,6 +1,7 @@
+const dayjs = require('dayjs');
 const courts = require('../js/courts');
 const caseTypes = require('../js/caseTypes');
-const cases = require('../fixtures/cases.json');
+const cases = require('../fixtures/cases_chunk_0.json');
 
 const LAMBDA_API_URL = Cypress.env('LAMBDA_API_URL');
 const S3_BUCKET_URL = Cypress.env('S3_BUCKET_URL');
@@ -9,9 +10,8 @@ const caseLookup = {};
 const doneCaseLookup = {};
 
 describe('Search case', function () {
-  cases.forEach(([court, year, caseType, caseNumber, manager], idx) => {
-    it(`Search ${court} ${year} ${caseType} ${caseNumber} ${manager}`, function() {
-      cy.log(idx);
+  cases.forEach(([rowIndex, court, year, caseType, caseNumber, manager]) => {
+    it(`[${rowIndex}] Search ${court} ${year} ${caseType} ${caseNumber} ${manager}`, function() {
       cy.visit({
         url: 'https://safind.scourt.go.kr/sf/mysafind.jsp',
         headers: {
@@ -122,7 +122,7 @@ describe('Search case', function () {
           const filename = `${court}_${year}_${caseType}_${caseNumber}_${manager}`;
           cy.get('#subTab2 .tableHor').screenshot(filename, {
             onAfterScreenshot($el, {name, path}) {
-              caseLookup[idx] = [path, name, date];
+              caseLookup[rowIndex] = [path, name, date];
             },
           });
         });
@@ -140,12 +140,11 @@ describe('Search case', function () {
   });
 
   afterEach(() => {
-    Object.keys(caseLookup).forEach(idx => {
+    Object.keys(caseLookup).forEach((rowIndex) => {
       // 이미 시트에 업데이트 한 사건은 스킵
-      if (doneCaseLookup[idx]) return;
-      const now = new Date();
-      const today = `${now.getFullYear()}.${('' + now.getMonth()+1).padStart(2, '0')}.${('' + now.getDate()).padStart(2, '0')}`;
-      const [imgPath, filename, date] = caseLookup[idx];
+      if (doneCaseLookup[rowIndex]) return;
+      const today = dayjs().format('YYYY-MM-DD');
+      const [imgPath, filename, date] = caseLookup[rowIndex];
 
       cy.readFile(imgPath, 'base64').then(img => {
         // 스크린샷 s3에 업로드
@@ -170,8 +169,12 @@ describe('Search case', function () {
         method: 'POST',
         url: `${LAMBDA_API_URL}/cases`,
         body: {
-          range: `F${Number(idx)+2}:H${Number(idx)+2}`,
-          values: [[date, today, `=HYPERLINK("${SCREENSHOT_URL}/${filename}.png", "이미지 링크")`]],
+          range: `F${rowIndex}:H${rowIndex}`,
+          values: [[
+            dayjs(date).format('YYYY-MM-DD'),
+            today,
+            `=HYPERLINK("${SCREENSHOT_URL}/${filename}.png", "이미지 링크")`
+          ]],
         },
         headers: {
           'content-type': 'application/json',
@@ -179,7 +182,7 @@ describe('Search case', function () {
       })
         .then((response) => {
           expect(response.status).eq(200);
-          doneCaseLookup[idx] = true;
+          doneCaseLookup[rowIndex] = true;
         });
     });
   });

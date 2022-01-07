@@ -6,7 +6,7 @@
   "scripts": {
     "start": "cypress run",
     "test": "cypress open",
-    "fixture": "node create-fixture.js"
+    "fixture": "node create-fixtures.js"
   },
   "repository": "git@github.com:iicdii/case-ing.git",
   "author": "Harim Kim <harimkims@gmail.com>",
@@ -14,6 +14,7 @@
   "dependencies": {
     "axios": "^0.24.0",
     "cypress": "^9.2.0",
+    "dayjs": "^1.10.7",
     "iconv-lite": "^0.6.3"
   },
   "devDependencies": {

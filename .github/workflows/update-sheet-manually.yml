@@ -6,13 +6,47 @@ env:
   CYPRESS_S3_BUCKET_URL: ${{ secrets.CYPRESS_S3_BUCKET_URL }}
 
 jobs:
-  cypress-run:
+  create-fixtures:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
+      - name: yarn install
+        run: |
+          yarn install --frozen-lockfile
+      - name: yarn fixture
+        run: |
+          yarn fixture
+      - uses: actions/upload-artifact@main
+        with:
+          name: fixtures
+          path: cypress/fixtures
+      - uses: actions/upload-artifact@main
+        with:
+          name: specs
+          path: cypress/integration
+
+  cypress-run:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [1, 2, 3, 4, 5]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - uses: actions/download-artifact@main
+        with:
+          name: fixtures
+          path: cypress/fixtures
+      - uses: actions/download-artifact@main
+        with:
+          name: specs
+          path: cypress/integration
       - name: yarn install
         run: |
           yarn install --frozen-lockfile

@@ -191,6 +191,7 @@ __pycache__/
 # Cypress
 cypress/fixtures/*.json
 cypress/screenshots
+cypress/integration/spec_*.js
 
 # Others
 *.h5

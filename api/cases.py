@@ -9,7 +9,7 @@ SPREADSHEET_ID = '1_CDB4m-BthVbpITxKjwEE82CrKkqu6go98nKCgG1hhw'
 def read(event, context):
     gc = gspread.service_account(filename='./certification/service-account.json')
     doc = gc.open_by_key(SPREADSHEET_ID)
-    worksheet = doc.get_worksheet(0)
+    worksheet = doc.get_worksheet(1)
     list_of_lists = worksheet.get_values()
 
     body = {
