@@ -56,7 +56,6 @@ jobs:
         timeout-minutes: 120
         with:
           record: true
-          group: 'Update sheet'
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # pass GitHub token to allow accurately detecting a build vs a re-run build
