@@ -1,0 +1,23 @@
+name: Update Sheet
+on:
+  schedule:
+    - cron: '* 1 * * *'
+
+env:
+  CYPRESS_LAMBDA_API_URL: ${{ secrets.CYPRESS_LAMBDA_API_URL }}
+  CYPRESS_S3_BUCKET_URL: ${{ secrets.CYPRESS_S3_BUCKET_URL }}
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          record: true
+        env:
+          # pass the Dashboard record key as an environment variable
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          # pass GitHub token to allow accurately detecting a build vs a re-run build
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
