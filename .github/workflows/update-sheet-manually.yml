@@ -21,12 +21,14 @@ jobs:
           yarn fixture
       - name: Cypress run
         uses: cypress-io/github-action@v2
-        timeout-minutes: 10
+        timeout-minutes: 60
         with:
           install: false
           record: true
           start: yarn start
           wait-on: 'http://localhost:3000'
+          # wait for 30 seconds for the server to respond
+          wait-on-timeout: 30
           browser: chrome
           headless: true
         env:
