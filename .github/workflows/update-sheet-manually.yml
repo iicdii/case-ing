@@ -19,10 +19,11 @@ jobs:
       - name: yarn fixture
         run: |
           yarn fixture
-      - name: Install
+      - name: Cypress install
         uses: cypress-io/github-action@v2
         with:
           runTests: false
+          build: yarn build
       - name: Save Cypress artifacts
         uses: actions/upload-artifact@v2
         with:
@@ -51,6 +52,7 @@ jobs:
         uses: cypress-io/github-action@v2
         timeout-minutes: 120
         with:
+          install: false
           record: true
           parallel: true
           group: Update Sheet
