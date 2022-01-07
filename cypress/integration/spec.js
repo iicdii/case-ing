@@ -119,7 +119,7 @@ describe('Search case', function () {
           const date = dateElem.innerText.trim();
           expect(date.length).gt(0);
 
-          const filename = `${court}_${year}_${caseType}_${caseNumber}_${manager}`;
+          const filename = `${caseNumber}`;
           cy.get('#subTab2 .tableHor').screenshot(filename, {
             onAfterScreenshot($el, {name, path}) {
               caseLookup[rowIndex] = [
