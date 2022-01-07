@@ -13,6 +13,9 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
+      - name: yarn install
+        run: |
+          yarn install --immutable --immutable-cache
       - name: yarn fixture
         run: |
           yarn fixture
