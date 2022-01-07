@@ -1,0 +1,55 @@
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    dockerizePip: true
+
+service: case-ing-api
+# app and org for use with dashboard.serverless.com
+#app: your-app-name
+#org: your-org-name
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: python3.8
+  lambdaHashingVersion: 20201221
+  ecr:
+    images:
+      predict_captcha:
+        path: ./
+  stage: prod
+  region: ap-northeast-2
+  iam:
+    role: arn:aws:iam::545918303703:role/lambda-and-s3-full-access
+
+functions:
+  captcha-cracker:
+    image:
+      name: predict_captcha
+    events:
+      - httpApi:
+          path: /predict
+          method: post
+    environment:
+      CUDA_VISIBLE_DEVICES: -1
+  google-sheet:
+    handler: cases.read
+    events:
+      - httpApi:
+          path: /cases
+          method: get
+  google-sheet-update:
+    handler: cases.update
+    events:
+      - httpApi:
+          path: /cases
+          method: post
+  upload-s3:
+    handler: s3.upload
+    events:
+      - httpApi:
+          path: /upload
+          method: post

@@ -1,0 +1,48 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <option name="myLocal" value="true" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="32">
+            <item index="0" class="java.lang.String" itemvalue="simplejson" />
+            <item index="1" class="java.lang.String" itemvalue="virtualenv" />
+            <item index="2" class="java.lang.String" itemvalue="Fabric" />
+            <item index="3" class="java.lang.String" itemvalue="pyzmq" />
+            <item index="4" class="java.lang.String" itemvalue="Flask-WTF" />
+            <item index="5" class="java.lang.String" itemvalue="hiredis" />
+            <item index="6" class="java.lang.String" itemvalue="xmltodict" />
+            <item index="7" class="java.lang.String" itemvalue="pyinotify" />
+            <item index="8" class="java.lang.String" itemvalue="pymongo" />
+            <item index="9" class="java.lang.String" itemvalue="requests" />
+            <item index="10" class="java.lang.String" itemvalue="raven" />
+            <item index="11" class="java.lang.String" itemvalue="html5lib" />
+            <item index="12" class="java.lang.String" itemvalue="gevent" />
+            <item index="13" class="java.lang.String" itemvalue="Flask" />
+            <item index="14" class="java.lang.String" itemvalue="celery" />
+            <item index="15" class="java.lang.String" itemvalue="httpretty" />
+            <item index="16" class="java.lang.String" itemvalue="Flask-Assets" />
+            <item index="17" class="java.lang.String" itemvalue="sure" />
+            <item index="18" class="java.lang.String" itemvalue="lxml" />
+            <item index="19" class="java.lang.String" itemvalue="Flask-DebugToolbar" />
+            <item index="20" class="java.lang.String" itemvalue="redis" />
+            <item index="21" class="java.lang.String" itemvalue="httpagentparser" />
+            <item index="22" class="java.lang.String" itemvalue="msgpack-python" />
+            <item index="23" class="java.lang.String" itemvalue="jsmin" />
+            <item index="24" class="java.lang.String" itemvalue="croniter" />
+            <item index="25" class="java.lang.String" itemvalue="fluent-logger" />
+            <item index="26" class="java.lang.String" itemvalue="Flask-Cache" />
+            <item index="27" class="java.lang.String" itemvalue="Wand" />
+            <item index="28" class="java.lang.String" itemvalue="mysqlconnector" />
+            <item index="29" class="java.lang.String" itemvalue="Flask-SQLAlchemy" />
+            <item index="30" class="java.lang.String" itemvalue="python-crontab" />
+            <item index="31" class="java.lang.String" itemvalue="python-Levenshtein" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="SqlDialectInspection" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="TaskInspection" enabled="false" level="INFO" enabled_by_default="false" />
+  </profile>
+</component>
