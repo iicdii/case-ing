@@ -19,17 +19,14 @@ jobs:
       - name: yarn fixture
         run: |
           yarn fixture
-      - name: Cypress install
-        uses: cypress-io/github-action@v2
+      - uses: actions/upload-artifact@main
         with:
-          runTests: false
-          build: yarn build
-      - name: Save Cypress artifacts
-        uses: actions/upload-artifact@v2
+          name: fixtures
+          path: cypress/fixtures
+      - uses: actions/upload-artifact@main
         with:
-          name: build
-          if-no-files-found: error
-          path: build
+          name: specs
+          path: cypress/integration
 
   cypress-run:
     runs-on: ubuntu-latest
@@ -43,19 +40,21 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
-      - name: Download Cypress artifacts
-        uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@main
         with:
-          name: build
-          path: build
+          name: fixtures
+          path: cypress/fixtures
+      - uses: actions/download-artifact@main
+        with:
+          name: specs
+          path: cypress/integration
       - name: Cypress run
         uses: cypress-io/github-action@v2
         timeout-minutes: 120
         with:
-          install: false
           record: true
           parallel: true
-          group: Update Sheet
+          group: 'Update sheet'
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # pass GitHub token to allow accurately detecting a build vs a re-run build
