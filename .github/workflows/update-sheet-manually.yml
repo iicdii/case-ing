@@ -1,7 +1,5 @@
 name: Update Sheet Manually
-on:
-  workflow_dispatch:
-  repository_dispatch:
+on: workflow_dispatch
 
 env:
   CYPRESS_LAMBDA_API_URL: ${{ secrets.CYPRESS_LAMBDA_API_URL }}
