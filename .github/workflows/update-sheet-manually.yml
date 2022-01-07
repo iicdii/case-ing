@@ -63,6 +63,6 @@ jobs:
       - name: Get result
         run: echo "${{steps.validator.outputs.should-run}}"
       - name: Cypress run
-        if: ${{ steps.validator.outputs.should-run }}
+        if: ${{ steps.validator.outputs.should-run == 'true' }}
         run: |
           yarn start --spec $(node cypress-partial.js 10 ${{ matrix.containers }})
