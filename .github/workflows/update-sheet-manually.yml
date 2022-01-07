@@ -51,6 +51,18 @@ jobs:
       - name: yarn install
         run: |
           yarn install --frozen-lockfile
+      - name: Validate test filename
+        id: validator
+        shell: bash
+        run: |
+          if [ "$(node cypress-partial.js 10 ${{ matrix.containers }})" == "" ]; then
+            echo ::set-output name=should-run::false
+          else
+            echo ::set-output name=should-run::true
+          fi
+      - name: Get result
+        run: echo "${{steps.validator.outputs.should-run}}"
       - name: Cypress run
+        if: ${{ steps.validator.outputs.should-run }}
         run: |
           yarn start --spec $(node cypress-partial.js 10 ${{ matrix.containers }})

@@ -56,6 +56,8 @@ fs.readdir(specDir).then(async files => {
       chunks[chunk].push(file);
     });
 
+  if (!chunks[thisRunner]) return false;
+
   const output = chunks[thisRunner].join(',');
   return console.log(output);
 });
