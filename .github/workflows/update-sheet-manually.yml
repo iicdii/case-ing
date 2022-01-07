@@ -52,7 +52,7 @@ jobs:
         uses: cypress-io/github-action@v2
         timeout-minutes: 60
         with:
-          record: false
+          record: true
           parallel: true
           group: 'Update sheet'
         env:
