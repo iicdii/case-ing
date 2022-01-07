@@ -4,6 +4,7 @@
   "description": "Case-ing",
   "main": "index.js",
   "scripts": {
+    "start": "cypress run",
     "test": "cypress open",
     "fixture": "node create-fixture.js"
   },
