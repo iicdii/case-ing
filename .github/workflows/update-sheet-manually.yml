@@ -1,5 +1,7 @@
 name: Update Sheet Manually
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  repository_dispatch:
 
 env:
   CYPRESS_LAMBDA_API_URL: ${{ secrets.CYPRESS_LAMBDA_API_URL }}
@@ -24,7 +26,7 @@ jobs:
         timeout-minutes: 60
         with:
           install: false
-          record: true
+          record: false
           start: yarn start
           wait-on: 'http://localhost:3000'
           # wait for 600 seconds for the server to respond
@@ -32,7 +34,5 @@ jobs:
           browser: chrome
           headless: true
         env:
-          # pass the Dashboard record key as an environment variable
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # pass GitHub token to allow accurately detecting a build vs a re-run build
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
