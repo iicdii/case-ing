@@ -27,8 +27,8 @@ jobs:
           record: true
           start: yarn start
           wait-on: 'http://localhost:3000'
-          # wait for 30 seconds for the server to respond
-          wait-on-timeout: 30
+          # wait for 600 seconds for the server to respond
+          wait-on-timeout: 600
           browser: chrome
           headless: true
         env:
