@@ -34,7 +34,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        containers: [1, 2, 3, 4, 5, 7, 8, 9, 10]
+        containers: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -49,13 +49,5 @@ jobs:
           name: specs
           path: cypress/integration
       - name: Cypress run
-        uses: cypress-io/github-action@v2
-        timeout-minutes: 60
-        with:
-          record: true
-          parallel: true
-          group: 'Update sheet'
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          # pass GitHub token to allow accurately detecting a build vs a re-run build
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cypress run --spec $(node cypress-partial.js 10 ${{ matrix.containers }})
