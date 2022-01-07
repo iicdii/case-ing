@@ -51,9 +51,6 @@ jobs:
       - name: yarn install
         run: |
           yarn install --frozen-lockfile
-      - name: yarn fixture
-        run: |
-          yarn fixture
       - name: Cypress run
         uses: cypress-io/github-action@v2
         timeout-minutes: 120
