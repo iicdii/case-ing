@@ -14,8 +14,7 @@
   "dependencies": {
     "axios": "^0.24.0",
     "cypress": "^9.2.0",
-    "dayjs": "^1.10.7",
-    "iconv-lite": "^0.6.3"
+    "dayjs": "^1.10.7"
   },
   "devDependencies": {
     "cypress-dotenv": "^2.0.0",
