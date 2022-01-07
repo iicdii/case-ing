@@ -23,10 +23,10 @@ axios
       arr.unshift(i+2);
       return arr;
     });
-    // 10개 단위로 배열을 쪼갬
-    const items = chunkArray(indexedArray, 10);
+    // 5개 단위로 배열을 쪼갬
+    const items = chunkArray(indexedArray, 5);
     const spec = fs.readFileSync(`${SPEC_FOLDER_PATH}/spec.js`, 'utf8');
-    // 10개 단위로 `spec_chunk_1.js`, `spec_chunk_2.js`, ... 를 생성
+    // 5개 단위로 `spec_chunk_1.js`, `spec_chunk_2.js`, ... 를 생성
     items.forEach((cases, i) => {
       fs.writeFileSync(`${FIXTURE_FOLDER_PATH}/cases_chunk_${i}.json`, JSON.stringify(cases));
       // 원본 spec인 경우 새 스펙 생성 안함

@@ -11,7 +11,7 @@ const doneCaseLookup = {};
 
 describe('Search case', function () {
   cases.forEach(([rowIndex, court, year, caseType, caseNumber, manager]) => {
-    it(`[${rowIndex}] Search ${court} ${year} ${caseType} ${caseNumber} ${manager}`, function() {
+    it(`[${rowIndex}] Search ${caseNumber}`, function() {
       cy.visit({
         url: 'https://safind.scourt.go.kr/sf/mysafind.jsp',
         headers: {
@@ -122,7 +122,9 @@ describe('Search case', function () {
           const filename = `${court}_${year}_${caseType}_${caseNumber}_${manager}`;
           cy.get('#subTab2 .tableHor').screenshot(filename, {
             onAfterScreenshot($el, {name, path}) {
-              caseLookup[rowIndex] = [path, name, date];
+              caseLookup[rowIndex] = [
+                court, year, caseType, caseNumber, manager, path, name, date
+              ];
             },
           });
         });
@@ -144,7 +146,9 @@ describe('Search case', function () {
       // 이미 시트에 업데이트 한 사건은 스킵
       if (doneCaseLookup[rowIndex]) return;
       const today = dayjs().format('YYYY-MM-DD');
-      const [imgPath, filename, date] = caseLookup[rowIndex];
+      const [
+        court, year, caseType, caseNumber, manager, imgPath, filename, date
+      ] = caseLookup[rowIndex];
 
       cy.readFile(imgPath, 'base64').then(img => {
         // 스크린샷 s3에 업로드
@@ -169,8 +173,13 @@ describe('Search case', function () {
         method: 'POST',
         url: `${LAMBDA_API_URL}/cases`,
         body: {
-          range: `F${rowIndex}:H${rowIndex}`,
+          range: `A${rowIndex}:H${rowIndex}`,
           values: [[
+            court,
+            year,
+            caseType,
+            caseNumber,
+            manager,
             dayjs(date).format('YYYY-MM-DD'),
             today,
             `=HYPERLINK("${SCREENSHOT_URL}/${filename}.png", "이미지 링크")`
