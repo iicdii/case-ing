@@ -19,14 +19,16 @@ jobs:
       - name: yarn fixture
         run: |
           yarn fixture
-      - uses: actions/upload-artifact@main
+      - name: Install
+        uses: cypress-io/github-action@v2
         with:
-          name: fixtures
-          path: cypress/fixtures
-      - uses: actions/upload-artifact@main
+          runTests: false
+      - name: Save Cypress artifacts
+        uses: actions/upload-artifact@v2
         with:
-          name: specs
-          path: cypress/integration
+          name: build
+          if-no-files-found: error
+          path: build
 
   cypress-run:
     runs-on: ubuntu-latest
@@ -40,23 +42,18 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
-      - uses: actions/download-artifact@main
+      - name: Download Cypress artifacts
+        uses: actions/download-artifact@v2
         with:
-          name: fixtures
-          path: cypress/fixtures
-      - uses: actions/download-artifact@main
-        with:
-          name: specs
-          path: cypress/integration
-      - name: yarn install
-        run: |
-          yarn install --frozen-lockfile
+          name: build
+          path: build
       - name: Cypress run
         uses: cypress-io/github-action@v2
         timeout-minutes: 120
         with:
           record: true
-          group: Tests on container ${{ matrix.containers }}
+          parallel: true
+          group: Update Sheet
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # pass GitHub token to allow accurately detecting a build vs a re-run build
