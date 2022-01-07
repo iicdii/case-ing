@@ -53,4 +53,4 @@ jobs:
           yarn install --frozen-lockfile
       - name: Cypress run
         run: |
-          cypress run --spec $(node cypress-partial.js 10 ${{ matrix.containers }})
+          yarn start --spec $(node cypress-partial.js 10 ${{ matrix.containers }})
