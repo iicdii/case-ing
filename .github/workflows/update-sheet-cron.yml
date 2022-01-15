@@ -1,0 +1,70 @@
+name: Update Sheet Cron
+on:
+  schedule:
+    - cron: '0 0 * * 0,1,2,3,4'
+
+env:
+  CYPRESS_LAMBDA_API_URL: ${{ secrets.CYPRESS_LAMBDA_API_URL }}
+  CYPRESS_S3_BUCKET_URL: ${{ secrets.CYPRESS_S3_BUCKET_URL }}
+
+jobs:
+  create-fixtures:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - name: yarn install
+        run: |
+          yarn install --frozen-lockfile
+      - name: yarn fixture
+        run: |
+          yarn fixture
+      - uses: actions/upload-artifact@main
+        with:
+          name: fixtures
+          path: cypress/fixtures
+      - uses: actions/upload-artifact@main
+        with:
+          name: specs
+          path: cypress/integration
+
+  cypress-run:
+    runs-on: ubuntu-latest
+    needs: create-fixtures
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - uses: actions/download-artifact@main
+        with:
+          name: fixtures
+          path: cypress/fixtures
+      - uses: actions/download-artifact@main
+        with:
+          name: specs
+          path: cypress/integration
+      - name: yarn install
+        run: |
+          yarn install --frozen-lockfile
+      - name: Validate test filename
+        id: validator
+        shell: bash
+        run: |
+          if [ "$(node cypress-partial.js 10 ${{ matrix.containers }})" == "" ]; then
+            echo ::set-output name=should-run::false
+          else
+            echo ::set-output name=should-run::true
+          fi
+      - name: Get result
+        run: echo "${{steps.validator.outputs.should-run}}"
+      - name: Cypress run
+        if: ${{ steps.validator.outputs.should-run == 'true' }}
+        run: |
+          yarn start --spec $(node cypress-partial.js 10 ${{ matrix.containers }})
