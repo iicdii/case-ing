@@ -11,7 +11,7 @@ const doneCaseLookup = {};
 
 describe('Search case', function () {
   cases.forEach(([rowIndex, court, year, caseType, caseNumber, manager]) => {
-    it(`[${rowIndex}] Search ${caseNumber}`, function() {
+    it(`[${rowIndex}] Search and Update sheet`, function() {
       cy.visit({
         url: 'https://safind.scourt.go.kr/sf/mysafind.jsp',
         headers: {
