@@ -68,3 +68,8 @@ jobs:
         if: ${{ steps.validator.outputs.should-run == 'true' }}
         run: |
           yarn start --spec $(node cypress-partial.js 10 ${{ matrix.containers }})
+      - uses: geekyeggo/delete-artifact@v1
+        with:
+          name: |
+            fixtures
+            specs
