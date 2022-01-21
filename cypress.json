@@ -2,7 +2,6 @@
   "fixturesFolder": false,
   "supportFile": false,
   "chromeWebSecurity": false,
-  "projectId": "h784nz",
   "retries": 10,
   "responseTimeout": 300000
 }
