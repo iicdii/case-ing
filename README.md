@@ -59,10 +59,15 @@ project
 #### 1. 구글 스프레드시트에 조회할 데이터 입력
 <img width="592" alt="process_1" src="https://user-images.githubusercontent.com/4951716/150552370-41dea747-98d8-40f3-87ae-f805402feb67.png">
 
-#### 2. S3 버킷 생성
+#### 2. 서비스 계정 생성 및 스프레드시트 편집자 권한 부여
+계정 인증 정보는 `api/certification/service-account.json`에 저장
+
+#### 3. Captcha 우회용 Scikit-learn 학습 후 `api/model/model.pickle`에 모델 저장
+
+#### 4. S3 버킷 생성
 사건 진행 내용 스크린샷을 저장할 S3 버킷을 생성합니다.
 
-#### 3. IAM 역할 생성
+#### 5. IAM 역할 생성
 정책 예)
 - `AWSLambdaBasicExecutionRole`
 - `AmazonS3FullAccess`
@@ -70,13 +75,13 @@ project
 
 역할 생성 후 `serverless.yml`에 ARN 입력
 
-#### 4. 서버리스 배포
+#### 6. 서버리스 배포
 ```
 cd api
 sls deploy
 ```
 
-#### 5. Actions Secrets 입력
+#### 7. Actions Secrets 입력
 - `CYPRESS_LAMBDA_API_URL` - 서버리스 API URL
 - `CYPRESS_S3_BUCKET_URL` - S3 Bucket URL
 
