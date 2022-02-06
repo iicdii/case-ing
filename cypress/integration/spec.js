@@ -13,7 +13,7 @@ const caseLookup = {};
 const doneCaseLookup = {};
 
 describe('Search case', function () {
-  cases.forEach(([rowIndex, court, year, caseType, caseNumber, manager]) => {
+  cases.forEach(([rowIndex, court, caseNumber, manager]) => {
     it(`[${rowIndex}] Search and Update sheet`, function() {
       cy.visit({
         url: 'https://safind.scourt.go.kr/sf/mysafind.jsp',
@@ -35,13 +35,18 @@ describe('Search case', function () {
       });
       cy.wait(500);
 
+      // 법원 선택
       const courtToSelect = courts.find(n => n.name === court);
       cy.get('#sch_bub_nm')
         .select(courtToSelect.value)
         .should('have.value', courtToSelect.value);
+
+      const [caseYear, caseSerialNumber] = caseNumber.match(/[0-9]+/g);
+      const [caseType] = caseNumber.match(/([가-힣])+/g);
+
       cy.get('#sel_sa_year')
-        .select(year)
-        .should('have.value', year);
+        .select(caseYear)
+        .should('have.value', caseYear);
 
       cy.get('#sa_gubun').then(elem => {
         elem.get(0).options.length = 0;
@@ -55,15 +60,12 @@ describe('Search case', function () {
       });
       cy.wait(500);
 
-      cy.get('#sa_gubun').select(0);
-      cy.get('#sa_gubun').find('option:selected').should('have.text', caseType);
-
-      // 사건번호
+      // 사건번호 입력
       cy.get('#sa_serial')
-        .type(caseNumber)
-        .should('have.value', caseNumber);
+        .type(caseSerialNumber)
+        .should('have.value', caseSerialNumber);
 
-      // 당사자명
+      // 당사자명 입력
       cy.get('#ds_nm')
         .type(manager)
         .should('have.value', manager);
@@ -117,12 +119,12 @@ describe('Search case', function () {
         cy.get('#subTab2 .tableHor tbody tr').then(elem => {
           expect(elem.length).gt(0);
         });
-        cy.get('#subTab2 .tableHor tbody tr').last().then(function (elem) {
-          const [prevDateElem,,prevResultElem] = elem.children();
+        cy.get('#subTab2 .tableHor tbody tr').last().prev().then(function (prevElem) {
+          const [prevDateElem,,prevResultElem] = prevElem.children();
           const prevDate = prevDateElem.innerText.trim();
           const prevResultDate = prevResultElem.innerText.trim().substr(0, 10);
 
-          cy.get('#subTab2 .tableHor tbody tr').last().prev().then(function (prevElem) {
+          cy.get('#subTab2 .tableHor tbody tr').last().prev().then(function (elem) {
             const [dateElem,,resultElem] = elem.children();
             const date = dateElem.innerText.trim();
             const resultDate = resultElem.innerText.trim().substr(0, 10);
@@ -140,7 +142,7 @@ describe('Search case', function () {
             cy.get('#subTab2 .tableHor').screenshot(filename, {
               onAfterScreenshot($el, {name, path}) {
                 caseLookup[rowIndex] = [
-                  court, year, caseType, caseNumber, manager, path, name, finalDate
+                  court, caseNumber, manager, path, name, finalDate
                 ];
               },
             });
@@ -165,7 +167,7 @@ describe('Search case', function () {
       if (doneCaseLookup[rowIndex]) return;
       const today = dayjs().format('YYYY-MM-DD');
       const [
-        court, year, caseType, caseNumber, manager, imgPath, filename, date
+        court, caseNumber, manager, imgPath, filename, date
       ] = caseLookup[rowIndex];
 
       cy.readFile(imgPath, 'base64').then(img => {
@@ -194,8 +196,6 @@ describe('Search case', function () {
           range: `A${rowIndex}:H${rowIndex}`,
           values: [[
             court,
-            year,
-            caseType,
             caseNumber,
             manager,
             dayjs(date).format('YYYY-MM-DD'),
