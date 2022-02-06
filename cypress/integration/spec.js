@@ -1,4 +1,7 @@
 const dayjs = require('dayjs');
+const minMax = require('dayjs/plugin/minMax')
+dayjs.extend(minMax);
+
 const courts = require('../js/courts');
 const caseTypes = require('../js/caseTypes');
 const cases = require('../fixtures/cases_chunk_0.json');
@@ -115,17 +118,32 @@ describe('Search case', function () {
           expect(elem.length).gt(0);
         });
         cy.get('#subTab2 .tableHor tbody tr').last().then(function (elem) {
-          const [dateElem] = elem.children();
-          const date = dateElem.innerText.trim();
-          expect(date.length).gt(0);
+          const [prevDateElem,,prevResultElem] = elem.children();
+          const prevDate = prevDateElem.innerText.trim();
+          const prevResultDate = prevResultElem.innerText.trim().substr(0, 10);
 
-          const filename = `${caseNumber}`;
-          cy.get('#subTab2 .tableHor').screenshot(filename, {
-            onAfterScreenshot($el, {name, path}) {
-              caseLookup[rowIndex] = [
-                court, year, caseType, caseNumber, manager, path, name, date
-              ];
-            },
+          cy.get('#subTab2 .tableHor tbody tr').last().prev().then(function (prevElem) {
+            const [dateElem,,resultElem] = elem.children();
+            const date = dateElem.innerText.trim();
+            const resultDate = resultElem.innerText.trim().substr(0, 10);
+            const finalDate = dayjs.max(
+              [prevDate, prevResultDate, date, resultDate]
+                .filter(n => n)
+                .filter(n => dayjs(n).isValid())
+                .map(n => dayjs(n))
+            ).format('YYYY. MM. DD');
+
+            // 최종 변경일자에 기입할 날짜
+            expect(finalDate.length).gt(0);
+
+            const filename = `${caseNumber}`;
+            cy.get('#subTab2 .tableHor').screenshot(filename, {
+              onAfterScreenshot($el, {name, path}) {
+                caseLookup[rowIndex] = [
+                  court, year, caseType, caseNumber, manager, path, name, finalDate
+                ];
+              },
+            });
           });
         });
       }
