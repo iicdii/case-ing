@@ -12,12 +12,12 @@
   "author": "Harim Kim <harimkims@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.24.0",
-    "cypress": "^9.2.0",
+    "axios": "^0.25.0",
+    "cypress": "^9.4.1",
     "dayjs": "^1.10.7"
   },
   "devDependencies": {
     "cypress-dotenv": "^2.0.0",
-    "dotenv": "^10.0.0"
+    "dotenv": "^16.0.0"
   }
 }
