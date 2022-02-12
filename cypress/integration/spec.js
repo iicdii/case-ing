@@ -124,7 +124,7 @@ describe('Search case', function () {
           const prevDate = prevDateElem.innerText.trim();
           const prevResultDate = prevResultElem.innerText.trim().substr(0, 10);
 
-          cy.get('#subTab2 .tableHor tbody tr').last().prev().then(function (elem) {
+          cy.get('#subTab2 .tableHor tbody tr').last().then(function (elem) {
             const [dateElem,,resultElem] = elem.children();
             const date = dateElem.innerText.trim();
             const resultDate = resultElem.innerText.trim().substr(0, 10);
