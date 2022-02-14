@@ -55,7 +55,7 @@ jobs:
         id: validator
         shell: bash
         run: |
-          if [ "$(node cypress-partial.js 10 ${{ matrix.containers }})" == "" ]; then
+          if [ "$(node cypress-partial.js 30 ${{ matrix.containers }})" == "" ]; then
             echo ::set-output name=should-run::false
           else
             echo ::set-output name=should-run::true
