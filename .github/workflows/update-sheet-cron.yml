@@ -1,7 +1,7 @@
 name: Update Sheet Cron
 on:
   schedule:
-    - cron: '0 0 * * 0,1,2,3,4'
+    - cron: '0 15 * * 0,1,2,3,4'
 
 env:
   CYPRESS_LAMBDA_API_URL: ${{ secrets.CYPRESS_LAMBDA_API_URL }}
