@@ -163,7 +163,7 @@ docker buildx build --platform linux/amd64 -t predict-captcha .
 
 ```shell
 cd api
-sls serverless-offline 
+sls offline 
 ```
 
 http://localhost:3000/cases 에 `GET` 요청을 보내서 스프레드시트의 데이터를 읽어올 수 있는지 테스트 해봅니다.
