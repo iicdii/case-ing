@@ -15,8 +15,5 @@
     "axios": "^1.0.0",
     "cypress": "^10.9.0",
     "dayjs": "^1.11.5"
-  },
-  "devDependencies": {
-    "dotenv": "^16.0.3"
   }
 }

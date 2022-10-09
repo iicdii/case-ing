@@ -1,4 +1,4 @@
-require('dotenv').config();
+const env = require('./cypress.env.json');
 const axios = require('axios');
 const fs = require('fs');
 
@@ -16,7 +16,7 @@ const chunkArray = (array, chunk_size) =>
 		.map(begin => array.slice(begin, begin + chunk_size))
 
 axios
-  .get(`${process.env.CYPRESS_LAMBDA_API_URL}/cases`)
+  .get(`${env.CYPRESS_LAMBDA_API_URL}/cases`)
   .then(res => {
     // 배열의 자식 배열에 로우 인덱스를 추가함
     const indexedArray = res.data.data.slice(1).map((arr, i) => {
