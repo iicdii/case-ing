@@ -228,10 +228,20 @@ sls deploy
 
 ### 2. Actions Secrets 입력
 
-위에서 입력한 값과 동일하게 입력합니다.
+깃허브 메뉴의 Settings -> Secrets -> Actions 에 들어가서 `CYPRESS_ENV_CI` 키를 아래와 같이 생성합니다.
 
-- `CYPRESS_LAMBDA_API_URL` - Lambda 서버리스 API URL
-- `CYPRESS_S3_BUCKET_URL` - S3 Bucket URL
+```json
+{
+  "CYPRESS_LAMBDA_API_URL": "<Lambda 서버리스 API URL>",
+  "CYPRESS_S3_BUCKET_URL": "<S3 Bucket URL>"
+}
+```
+
+여기서 입력한 json 데이터는 workflow 실행 중 아래 명령어에 의해 자동으로 생성됩니다.
+
+```shell
+echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.env.json
+```
 
 ## Cypress 자동화 테스트
 ```shell
