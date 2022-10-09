@@ -78,6 +78,12 @@ project
 
 그 후 서비스 계정의 API 키를 생성 및 다운로드 받은 후 `api/certification/service-account.json`에 서비스 키를 저장합니다.
 
+위 작업이 끝나면 스프레드시트 우측 상단의 공유 버튼을 클릭합니다.
+
+<img width="214" alt="share" src="https://user-images.githubusercontent.com/4951716/194752776-dae0166b-d18c-4630-8997-1c69b4a1c4d6.png">
+
+공유 모달에서 서비스 계정의 이메일을 입력하고 편집자 권한을 부여합니다.
+
 ### 3. Captcha 우회용 Scikit-learn 학습
 캡챠 예측에 필요한 모델을 학습시킨 후 `api/model/model.pickle`에 모델을 저장합니다.
 
