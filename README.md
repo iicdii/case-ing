@@ -50,7 +50,7 @@ case-ing
 │        └─ index.js
 ├─ create-fixtures.js            # 구글 스프레드시트를 조회해서 필요한 fixtures를 생성함
 ├─ cypress-partial.js            # Cypress 병렬 실행용 스크립트
-└─ .env // 환경변수 저장소
+└─ cypress.env.json              # 환경변수 저장소
 ```
 
 ## 사전 준비
