@@ -60,7 +60,7 @@ case-ing
 #### 사건 진행현황 시트 생성
 자동화 입력이 끝난 후 결과가 기록될 시트입니다.
 
-<img width="856" alt="sheet_a" src="https://user-images.githubusercontent.com/4951716/194748066-7f51ec30-1d05-4210-8360-588e32a1aa32.png">
+<img width="1233" alt="sheet_a" src="https://user-images.githubusercontent.com/4951716/194760426-ca01cb79-611c-4c22-b10b-859b4213b452.png">
 
 #### 사건 목록 시트 생성
 조회하고 싶은 사건을 입력할 시트입니다.

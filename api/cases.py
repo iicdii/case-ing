@@ -55,7 +55,7 @@ def clear(event, context):
     gc = gspread.service_account(filename='./certification/service-account.json')
     doc = gc.open_by_key(SPREADSHEET_ID)
     worksheet = doc.get_worksheet(0)
-    worksheet.batch_clear(["A2:F3000"])
+    worksheet.batch_clear(["A2:G3000"])
 
     body = {
         "messsage" : "success"

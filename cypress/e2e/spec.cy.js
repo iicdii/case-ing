@@ -201,14 +201,15 @@ describe('Search case', function () {
         method: 'POST',
         url: `${LAMBDA_API_URL}/cases`,
         body: {
-          range: `A${rowIndex}:F${rowIndex}`,
+          range: `A${rowIndex}:G${rowIndex}`,
           values: [[
             court,
             caseNumber,
             manager,
             dayjs(date).format('YYYY-MM-DD'),
             today,
-            `=HYPERLINK("${SCREENSHOT_URL}/${filename}.png", "이미지 링크")`
+            `=HYPERLINK("${SCREENSHOT_URL}/${filename}.png", "이미지 링크")`,
+            `='사건 목록'!D${rowIndex}`
           ]],
         },
         headers: {
