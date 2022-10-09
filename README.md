@@ -186,10 +186,10 @@ yarn install
 serverless deploy --stage beta
 ```
 
-서버리스 배포가 완료되면 배포된 URL이 콘솔에 뜰텐데 해당 URL로 요청을 보내봅니다.
+서버리스 배포가 완료되면 배포된 URL이 콘솔에 뜰텐데 해당 URL로 요청을 보내봅니다. 아래는 예시입니다.
 
-(GET) https://xxxxxxxxx.execute-api.ap-northeast-2.amazonaws.com/cases
-(POST) https://xxxxxxxxx.execute-api.ap-northeast-2.amazonaws.com/predict
+- (GET) https://xxxxxxxxx.execute-api.ap-northeast-2.amazonaws.com/cases
+- (POST) https://xxxxxxxxx.execute-api.ap-northeast-2.amazonaws.com/predict
 
 아래는 캡챠 API에 대한 요청 및 응답 예시입니다.
 
