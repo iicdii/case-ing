@@ -281,7 +281,7 @@ yarn start --spec $(node cypress-partial.js n ${{ matrix.containers }})
 - `n`개의 러너 중 해당 러너가 실행해야 할 번호의 spec을 실행
 
 ### 3. 아티펙트 삭제 (delete-artifacts)
-Cypress action을 실행하면서 생성된 파일들을 삭제합니다. 해당 작업을 진행하지 않으면 실행한 데이터가 남아서
+워크플로우 실행중에 artifact에 보관한 파일들을 삭제합니다. 해당 작업을 진행하지 않으면 실행한 데이터가 남아서
 개인정보가 유출 위험이 존재하며 깃허브에 보관 비용을 낼 수도 있습니다. 
 
 ## spec.cy.js 프로세스 설명
