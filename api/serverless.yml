@@ -53,6 +53,12 @@ functions:
       - httpApi:
           path: /cases
           method: post
+  google-sheet-clear:
+    handler: cases.clear
+    events:
+      - httpApi:
+          path: /cases
+          method: delete
   upload-s3:
     handler: s3.upload
     events:

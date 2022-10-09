@@ -201,7 +201,7 @@ describe('Search case', function () {
         method: 'POST',
         url: `${LAMBDA_API_URL}/cases`,
         body: {
-          range: `A${rowIndex}:H${rowIndex}`,
+          range: `A${rowIndex}:F${rowIndex}`,
           values: [[
             court,
             caseNumber,

@@ -262,7 +262,9 @@ node create-fixtures.js
 - `cypress/fixtures` 폴더에 5개 단위로 `cases_chunk_<number>.json`를 생성함. 5개씩 나누는 이유는 Cypress 병렬 실행을 위함임.
 - `cypress/e2e` 폴더에 5개 단위로 `spec_chunk_<number>.cy.js`를 생성함.
 
-### 2. 스크립트 실행 (cypress-run)
+이후 최신 정보를 유지하기위해 구글 스프레드시트의 사건 진행현황 시트 데이터를 초기화합니다.
+
+### 2. 자동화 메인 스크립트 실행 (cypress-run)
 ```shell
 yarn start --spec $(node cypress-partial.js n ${{ matrix.containers }})
 ```

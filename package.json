@@ -6,7 +6,8 @@
   "scripts": {
     "start": "cypress run",
     "test": "cypress open",
-    "fixture": "node create-fixtures.js"
+    "fixture": "node create-fixtures.js",
+    "clear": "node clear-sheet.js"
   },
   "repository": "git@github.com:iicdii/case-ing.git",
   "author": "Harim Kim <harimkims@gmail.com>",
