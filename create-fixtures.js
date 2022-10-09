@@ -29,10 +29,12 @@ axios
     // 5개 단위로 `spec_chunk_1.cy.js`, `spec_chunk_2.cy.js`, ... 를 생성
     items.forEach((cases, i) => {
       fs.writeFileSync(`${FIXTURE_FOLDER_PATH}/cases_chunk_${i}.json`, JSON.stringify(cases));
+      console.info(`${FIXTURE_FOLDER_PATH}/cases_chunk_${i}.json created`);
       // 원본 spec인 경우 새 스펙 생성 안함
       if (i === 0) return;
       const newSpec = spec.replace('cases_chunk_0.json', `cases_chunk_${i}.json`);
       fs.writeFileSync(`${SPEC_FOLDER_PATH}/spec_chunk_${i}.cy.js`, newSpec, 'utf8');
+      console.info(`${SPEC_FOLDER_PATH}/spec_chunk_${i}.cy.js created`);
     });
   })
   .catch(e => console.error(e))

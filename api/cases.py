@@ -4,7 +4,7 @@ import json
 
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
-SPREADSHEET_ID = '14JpLWgPeyyEEz1_0oJXW4AdkX8Ubf12A_TrpA83ZxrA'
+SPREADSHEET_ID = '1_CDB4m-BthVbpITxKjwEE82CrKkqu6go98nKCgG1hhw'
 
 def read(event, context):
     gc = gspread.service_account(filename='./certification/service-account.json')
