@@ -233,6 +233,12 @@ sls deploy
 - `CYPRESS_LAMBDA_API_URL` - Lambda 서버리스 API URL
 - `CYPRESS_S3_BUCKET_URL` - S3 Bucket URL
 
+## Cypress 자동화 테스트
+```shell
+node create-fixtures.js
+yarn test
+```
+
 ## GitHub Actions workflow
 
 - `.github/workflows/update-sheet-cron.yml`
