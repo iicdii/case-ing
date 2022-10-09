@@ -67,7 +67,7 @@ jobs:
         run: |
           yarn start --spec $(node cypress-partial.js 30 ${{ matrix.containers }})
 
-  delete-artifcats:
+  delete-artifacts:
     runs-on: ubuntu-latest
     needs: cypress-run
     if: ${{ always() }}

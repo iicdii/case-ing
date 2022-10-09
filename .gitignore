@@ -191,7 +191,11 @@ __pycache__/
 # Cypress
 cypress/fixtures/*.json
 cypress/screenshots
-cypress/integration/spec_*.js
+cypress/e2e/spec_chunk_**.js
+cypress.env.json
+
+# Python
+venv
 
 # Others
 *.h5

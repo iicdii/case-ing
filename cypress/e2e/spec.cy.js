@@ -6,8 +6,8 @@ const courts = require('../js/courts');
 const caseTypes = require('../js/caseTypes');
 const cases = require('../fixtures/cases_chunk_0.json');
 
-const LAMBDA_API_URL = Cypress.env('LAMBDA_API_URL');
-const S3_BUCKET_URL = Cypress.env('S3_BUCKET_URL');
+const LAMBDA_API_URL = Cypress.env('CYPRESS_LAMBDA_API_URL');
+const S3_BUCKET_URL = Cypress.env('CYPRESS_S3_BUCKET_URL');
 const SCREENSHOT_URL = `${S3_BUCKET_URL}/screenshots`;
 const caseLookup = {};
 const doneCaseLookup = {};
@@ -21,6 +21,13 @@ describe('Search case', function () {
           'Accept-Language': 'ko,en;q=0.9,ko-KR;q=0.8,en-US;q=0.7'
         },
         retryOnStatusCodeFailure: true
+      });
+
+      cy.get('img').each(($img) => {
+        cy.wrap($img).scrollIntoView().should('be.visible');
+
+        expect($img[0].naturalWidth).to.be.greaterThan(0);
+        expect($img[0].naturalHeight).to.be.greaterThan(0);
       });
 
       cy.get('#sch_bub_nm').then(elem => {
@@ -74,6 +81,7 @@ describe('Search case', function () {
         cy
           .get('#captcha')
           .find('img')
+          .should('have.attr', 'src', '/sf/captchaImg?t=image')
           .then(async $img => {
             const canvas = $document.createElement("canvas");
             const ctx = canvas.getContext("2d");
@@ -103,7 +111,7 @@ describe('Search case', function () {
             })
               .then((response) => {
                 const number = new TextDecoder().decode(response.body);
-                expect(new TextDecoder().decode(response.body)).length(6);
+                expect(number).length(6);
 
                 // 자동입력방지 문자 입력
                 cy.get('#answer')

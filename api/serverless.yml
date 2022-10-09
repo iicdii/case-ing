@@ -1,5 +1,10 @@
 plugins:
+  - serverless-offline
   - serverless-python-requirements
+
+package:
+  exclude:
+    - venv/**
 
 custom:
   pythonRequirements:
@@ -10,7 +15,7 @@ service: case-ing-api
 #app: your-app-name
 #org: your-org-name
 
-frameworkVersion: '2'
+frameworkVersion: '3'
 
 provider:
   name: aws
@@ -20,6 +25,7 @@ provider:
     images:
       predict_captcha:
         path: ./
+        platform: linux/amd64
   stage: prod
   region: ap-northeast-2
   iam:

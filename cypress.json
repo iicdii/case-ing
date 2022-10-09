@@ -1,7 +1,0 @@
-{
-  "fixturesFolder": false,
-  "supportFile": false,
-  "chromeWebSecurity": false,
-  "retries": 20,
-  "responseTimeout": 300000
-}

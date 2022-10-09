@@ -3,7 +3,7 @@ const axios = require('axios');
 const fs = require('fs');
 
 const FIXTURE_FOLDER_PATH = './cypress/fixtures';
-const SPEC_FOLDER_PATH = './cypress/integration';
+const SPEC_FOLDER_PATH = './cypress/e2e';
 
 if (!fs.existsSync(FIXTURE_FOLDER_PATH)){
   fs.mkdirSync(FIXTURE_FOLDER_PATH);
@@ -25,14 +25,14 @@ axios
     });
     // 5개 단위로 배열을 쪼갬
     const items = chunkArray(indexedArray, 5);
-    const spec = fs.readFileSync(`${SPEC_FOLDER_PATH}/spec.js`, 'utf8');
-    // 5개 단위로 `spec_chunk_1.js`, `spec_chunk_2.js`, ... 를 생성
+    const spec = fs.readFileSync(`${SPEC_FOLDER_PATH}/spec.cy.js`, 'utf8');
+    // 5개 단위로 `spec_chunk_1.cy.js`, `spec_chunk_2.cy.js`, ... 를 생성
     items.forEach((cases, i) => {
       fs.writeFileSync(`${FIXTURE_FOLDER_PATH}/cases_chunk_${i}.json`, JSON.stringify(cases));
       // 원본 spec인 경우 새 스펙 생성 안함
       if (i === 0) return;
       const newSpec = spec.replace('cases_chunk_0.json', `cases_chunk_${i}.json`);
-      fs.writeFileSync(`${SPEC_FOLDER_PATH}/spec_chunk_${i}.js`, newSpec, 'utf8');
+      fs.writeFileSync(`${SPEC_FOLDER_PATH}/spec_chunk_${i}.cy.js`, newSpec, 'utf8');
     });
   })
   .catch(e => console.error(e))

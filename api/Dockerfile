@@ -27,10 +27,10 @@ RUN yum -y install tar gzip zlib freetype-devel \
 COPY docker-requirements.txt  ./requirements.txt
 RUN  pip3 install -r requirements.txt --target ./
 # Replace Pillow with Pillow-SIMD to take advantage of AVX2
-RUN  pip3 uninstall -y pillow && CC="cc -mavx2" pip install -U --force-reinstall pillow-simd
+RUN  pip3 uninstall -y pillow && CC="cc -mavx2" pip3 install -U --force-reinstall pillow-simd
 
 
-COPY app.py ./
+COPY app.py ./app.py
 COPY model ./model
 
 # You can overwrite command in `serverless.yml` template
