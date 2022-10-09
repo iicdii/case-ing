@@ -254,6 +254,7 @@ node create-fixtures.js
 ```shell
 yarn start --spec $(node cypress-partial.js n ${{ matrix.containers }})
 ```
+- `n`개의 러너 중 해당 러너가 실행해야 할 번호의 spec을 실행
 
 ### 3. 아티펙트 삭제 (delete-artifacts)
 Cypress action을 실행하면서 생성된 파일들을 삭제합니다. 해당 작업을 진행하지 않으면 실행한 데이터가 남아서

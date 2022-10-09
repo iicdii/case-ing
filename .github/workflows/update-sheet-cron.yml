@@ -36,7 +36,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        containers: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29]
+        containers: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -57,7 +57,7 @@ jobs:
         id: validator
         shell: bash
         run: |
-          if [ "$(node cypress-partial.js 30 ${{ matrix.containers }})" == "" ]; then
+          if [ "$(node cypress-partial.js 50 ${{ matrix.containers }})" == "" ]; then
             echo ::set-output name=should-run::false
           else
             echo ::set-output name=should-run::true
@@ -67,7 +67,7 @@ jobs:
       - name: Cypress run
         if: ${{ steps.validator.outputs.should-run == 'true' }}
         run: |
-          yarn start --spec $(node cypress-partial.js 30 ${{ matrix.containers }})
+          yarn start --spec $(node cypress-partial.js 50 ${{ matrix.containers }})
 
   delete-artifacts:
     runs-on: ubuntu-latest
